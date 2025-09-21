@@ -4,14 +4,15 @@ import InternshipRecommendations from "../pages/InternshipRecommendation";
 import ProfileDashboard from "../pages/ProfileDashBoard";  
 import ApplicationDashboard from "../pages/ApplicationDashboard";  
 
+import { useAuth } from "../context/AuthContext";
 
-const MainLayout = ({ user, applications, onUpdateUser, onApply, onLogout }) => {
+const MainLayout = () => {
   const [activeTab, setActiveTab] = React.useState('recommendations');
-  
+  const { user, applications, updateUser, applyForInternship, logout } = useAuth();
   const renderContent = () => {
     switch (activeTab) {
       case 'profile':
-        return <ProfileDashboard user={user} onUpdateUser={onUpdateUser} />;
+        return <ProfileDashboard user={user} onUpdateUser={updateUser} />;
       case 'applications':
         return <ApplicationDashboard applications={applications} />;
       case 'recommendations':
@@ -19,7 +20,7 @@ const MainLayout = ({ user, applications, onUpdateUser, onApply, onLogout }) => 
         return (
           <InternshipRecommendations
             applications={applications}
-            onApply={onApply}
+            onApply={applyForInternship}
           />
         );
     }
@@ -30,7 +31,7 @@ const MainLayout = ({ user, applications, onUpdateUser, onApply, onLogout }) => 
       <Navbar
         activeTab={activeTab}
         onTabChange={setActiveTab}
-        onLogout={onLogout}
+        onLogout={logout}
       />
       <main>{renderContent()}</main>
     </div>

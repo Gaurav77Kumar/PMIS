@@ -1,12 +1,14 @@
 import React from 'react';
 import { User, Briefcase, FileText, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 
-const Navbar = ({ activeTab, onTabChange, onLogout }) => {
+const Navbar = ({ activeTab, onTabChange }) => {
   const tabs = [
     { id: 'recommendations', label: 'Internships', icon: Briefcase },
     { id: 'profile', label: 'Profile', icon: User },
     { id: 'applications', label: 'Applications', icon: FileText },
   ];
+  const { logout } = useAuth();
 
   return (
     <nav className="bg-white shadow-lg border-b border-gray-200">
@@ -48,7 +50,7 @@ const Navbar = ({ activeTab, onTabChange, onLogout }) => {
           {/* Logout Button */}
           <div className="flex items-center">
             <button
-              onClick={onLogout}
+              onClick={logout}
               className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-gray-700 hover:text-red-600 transition-colors duration-200"
             >
               <LogOut className="w-4 h-4 mr-2" />
